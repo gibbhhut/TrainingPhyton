@@ -24,7 +24,8 @@ print("3)Введите слова через пробел")
 a = input().split()
 d = {'жы': 'жИ', 'шы': 'шИ','чя':'чА','щя':'щА'}
 for i in range(len(a)):
-    a[i] = a[i].replace(d,'жИ')
+    for k in d:
+        a[i] = a[i].replace(k,d[k])
 print (a)
 print("\n")
 #4
