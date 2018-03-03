@@ -1,42 +1,3 @@
-#1 Cчитывание с файла, работа с буквами
-def longest_sequence(s):
-    l = 0
-    max = 0
-    for i in range(len(s)):
-        if s[i] == 'а':
-            l += 1
-        else:
-            if l > max:
-                max = l
-            l = 0
-    if l > max:
-        max = l
-    return max
-f = open('test1.txt','r',encoding='cp1251')
-s = f.read()
-f.close()
-print("1)Самая длинная последовательность: ",longest_sequence(s))
-print (s)
-#2 Считывание с файла, работа с большими списками.
-def count_high(s):
-    count = 0
-    for i in range (len(s)):
-        if i%2 != 0:
-            f = 1
-            x = s[i]
-            for j in range (len(x)):
-                if(x[j] != '5'):
-                    f = 0
-                    break
-            if(f == 1):
-                count += 1
-    return count
-f = open('test2.txt','r',encoding='cp1251')
-s = f.read().split()
-f.close()
-print("2)Число отличников: ",count_high(s))
-print(s)
-#3 Запись в файл.
 def read_file(s):
     a = []
     x = ''
@@ -52,32 +13,61 @@ def write_file(a):
     for i in range(len(a)):
         s += a[i]
     return s
+def open_stream(text,code,action,value,flag):
+    f = open(text,action,encoding = code)
+    if(action == 'r'):
+        s = f.read()
+        f.close()
+        if(flag == 0):
+            a = read_file(s)
+            return a
+        else:
+            return s
+    if(action == 'w'):
+        f.write(write_file(value))
+        f.close()
+        return
+def longest_sequence(s):
+    l = 0
+    max = 0
+    for i in range(len(s)):
+        if s[i] == 'а':
+            l += 1
+        else:
+            if l > max:
+                max = l
+            l = 0
+    if l > max:
+        max = l
+    return max
+#1 Cчитывание с файла, работа с буквами
+s = open_stream('test2.txt','ansi','r',0,1)
+print("1)Самая длинная последовательность: ",longest_sequence(s))
+#2 Считывание с файла, работа с большими списками.
+def count_high(s):
+    count = 0
+    for i in range (len(s)):
+        if i%2 != 0:
+            f = 1
+            x = s[i]
+            for j in range (len(x)):
+                if(x[j] != '5'):
+                    f = 0
+                    break
+            if(f == 1):
+                count += 1
+    return count
+s = open_stream('test2.txt','cp1251','r',0,1)
+s = s.split()
+print("2)Число отличников: ",count_high(s))
+print(s)
+#3 Запись в файл.
 #1 действие
-f1 = open('1.txt','r')#откроем первый файл
-s = f1.read()
-f1.close()
-a = read_file(s)
-f3 = open('3.txt','w')#запишем первый в третий
-f3.write(write_file(a))
-f3.close()
+a1 = open_stream('1.txt','ansi','r',0,0)#откроем первый файл
+open_stream('3.txt','ansi','w',a1,0)#запишем первый в третий
 #2 действие
-f2 = open('2.txt','r')#откроем второй для чтения
-s = f2.read()
-f2.close()
-a = read_file(s)
-f1 = open('1.txt','w')#запишем в первый из второго
-f1.write(write_file(a))
-f1.close()
+a2 = open_stream('2.txt','ansi','r',0,0)#откроем второй для чтения
+open_stream('1.txt','ansi','w',a2,0)#запишем в первый из второго
 #3 действие
-f3 = open('3.txt','r')#откроем третий для чтения
-s = f3.read()
-f3.close()
-a = read_file(s)
-f2 = open('2.txt','w')#запишем во второй из третьего
-f2.write(write_file(a))
-f2.close()
-
-
-
-
-
+a3 = open_stream('3.txt','ansi','r',0,0)#откроем третий для чтения
+open_stream('2.txt','ansi','w',a3,0)#запишем во второй из третьего
