@@ -16,22 +16,22 @@ class Time:
     def into_second(self):
         return int(self.hour)*60*60 + int(self.minute)*60 + int(self.second)
     def from_second(self,temp):
-        if((temp//3600)<10):
-            self.hour = "0" + str((temp//3600))
+        if((temp//3600)<10):#выделяем часы
+            self.hour = "0" + str((temp//3600))# 9 -> 09
         elif((temp//3600)>=10 and (temp//3600)<=23):
-            self.hour = str(temp//3600)
-        elif((temp//3600)>23):
-            if((temp//3600)%12 < 10):
+            self.hour = str(temp//3600)# 15 -> 15
+        elif((temp//3600)>23):#если больше, чем часов в сутках
+            if((temp//3600)%12 < 10):#9 -> 09
                 self.hour = "0" + str((temp//3600)%12)
             else:
-                self.hour = str((temp//3600)%12)
+                self.hour = str((temp//3600)%12)# 15 -> 15
         temp = temp%3600
-        if((temp//60)<10):
+        if((temp//60)<10):#выделяем минуты
             self.minute = "0" + str(temp//60)
         else:
             self.minute = str(temp//60)
         temp = temp%60
-        if(temp<10):
+        if(temp<10):#выделяем секунды
             self.second = "0" + str(temp)
         else:
             self.second = str(temp)
