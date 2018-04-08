@@ -14,19 +14,35 @@ class Time:
             return self.hour+":"+self.minute+":"+self.second
         else:
             return "Errors!"
+    def into_second(self):
+        return int(self.hour)*60*60 + int(self.minute)*60 + int(self.second)
+    def from_second(self,temp):
+        self.hour = str(temp//3600)
+        temp = temp%3600
+        self.minute = str(temp//60)
+        temp = temp%60
+        self.second = str(temp)
     def add(self,time):
         time = Time(time)
         if(time.validation == True):
-            temp1 = int(self.hour)*60*60 + int(self.minute)*60 + int(self.second)
-            temp2 = int(time.hour)*60*60 + int(time.minute)*60 + int(time.second)
+            temp1 = self.into_second()
+            temp2 = time.into_second()
             temp1 = temp1 + temp2
-            self.hour = str(temp1//3600)
-            temp1 = temp1%3600
-            self.minute = str(temp1//60)
-            temp1 = temp1%60
-            self.second = str(temp1)
+            self = self.from_second(temp1)
+    def compare(self,a):
+        time = a[0].into_second()
+        max = time;index = 0
+        for i in range(len(a)):
+            time = a[i].into_second()
+            a[i] = time
+            if a[i]>max:max=a[i];index=i
+        return self.from_second(a[index])
 
-value1 = Time("10:20:30")
+
+value1 = Time("10:10:15")
 print(value1)
-value1.add("5:10:15")
-print(value1)
+value2 = Time("5:10:15")
+print(value2)
+array = [value1,value2]
+value1.compare(array)
+print("Наибольшее время:",value1)
