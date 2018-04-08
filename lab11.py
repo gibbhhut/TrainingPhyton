@@ -30,19 +30,17 @@ class Time:
             temp1 = temp1 + temp2
             self = self.from_second(temp1)
     def compare(self,a):
-        time = a[0].into_second()
+        time = Time(array[0])
+        time = time.into_second()
         max = time;index = 0
         for i in range(len(a)):
-            time = a[i].into_second()
+            time = Time(array[i])
+            time = time.into_second()
             a[i] = time
             if a[i]>max:max=a[i];index=i
         return self.from_second(a[index])
 
-
-value1 = Time("10:10:15")
-print(value1)
-value2 = Time("5:10:15")
-print(value2)
-array = [value1,value2]
-value1.compare(array)
-print("Наибольшее время:",value1)
+array = ["5:5:5","10:10:10","14:8:5"]
+value = Time(array[0])
+value.compare(array)
+print("Наибольшее время:",value)
