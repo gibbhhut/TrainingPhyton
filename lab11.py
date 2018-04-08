@@ -1,5 +1,4 @@
 class Time:
-
     def __init__(self,time,hour = '',minute = '',second = '', validation = True):
         time = time.split(":")
         if(int(time[0])>=0 and int(time[0])<=24)and(int(time[1])>=0 and int(time[1])<=59)and(int(time[2])>=0 and int(time[2])<=59):
@@ -17,11 +16,20 @@ class Time:
     def into_second(self):
         return int(self.hour)*60*60 + int(self.minute)*60 + int(self.second)
     def from_second(self,temp):
-        self.hour = str(temp//3600)
+        if((temp//3600)<10):
+            self.hour = "0" + str(temp//3600)
+        else:
+            self.hour = str(temp//3600)
         temp = temp%3600
-        self.minute = str(temp//60)
+        if((temp//60)<10):
+            self.hour = "0" + str(temp//60)
+        else:
+            self.minute = str(temp//60)
         temp = temp%60
-        self.second = str(temp)
+        if(temp<10):
+            self.hour = "0" + str(temp)
+        else:
+            self.second = str(temp)
     def add(self,time):
         time = Time(time)
         if(time.validation == True):
@@ -39,8 +47,14 @@ class Time:
             a[i] = time
             if a[i]>max:max=a[i];index=i
         return self.from_second(a[index])
-
-array = ["5:5:5","10:10:10","14:8:5"]
+#1)
+value1 = Time("01:01:01")
+print(value1)
+#2)
+value1.add("05:14:50")
+print(value1)
+#3)
+array = ["05:05:05","10:10:10","14:08:05"]
 value = Time(array[0])
 value.compare(array)
 print("Наибольшее время:",value)
